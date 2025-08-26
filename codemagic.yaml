@@ -64,8 +64,8 @@ workflows:
       - name: Verify Java version
         script: java -version
 
-      - name: Clean Gradle build
-        script: ./gradlew clean
+      # - name: Clean Gradle build
+      #   script: ./gradlew clean
 
       - name: Build debug APK
         script: ./gradlew assembleDebug #--stacktrace --info --debug
