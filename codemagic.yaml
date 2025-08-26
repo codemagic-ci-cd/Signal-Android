@@ -73,7 +73,7 @@ workflows:
       #   script: ./gradlew clean
 
       - name: Build debug APK
-        script: ./gradlew :app:bundlePlayProdRelease #--stacktrace --info --debug
+        script: ./gradlew :Signal-Android:bundlePlayProdRelease #--stacktrace --info --debug
 
     artifacts:
       - app/build/outputs/apk/playProd/debug/*.apk
