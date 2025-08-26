@@ -161,33 +161,3 @@ tasks.register("checkStopship") {
     }
   }
 }
-
-
-android {
-
-  signingConfigs {
-    create("release") {
-      if (System.getenv()["CI"]?.toBoolean() == true) { // CI=true is exported by Codemagic
-        storeFile = file(System.getenv()["CM_KEYSTORE_PATH"])
-        storePassword = System.getenv()["CM_KEYSTORE_PASSWORD"]
-        keyAlias = System.getenv()["CM_KEY_ALIAS"]
-        keyPassword = System.getenv()["CM_KEY_PASSWORD"]
-      } else {
-        // Local fallback: reuse debug keystore if present so the script compiles/runs locally.
-        keystores["debug"]?.let { properties ->
-          storeFile = file("${project.rootDir}/${properties.getProperty("storeFile")}")
-          storePassword = properties.getProperty("storePassword")
-          keyAlias = properties.getProperty("keyAlias")
-          keyPassword = properties.getProperty("keyPassword")
-        }
-      }
-    }
-  }
-
- buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
-        }
-    }
-}
