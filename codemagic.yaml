@@ -76,8 +76,9 @@ workflows:
         script: ./gradlew :Signal-Android:bundlePlayProdRelease #--stacktrace --info --debug
 
     artifacts:
-      - app/build/outputs/apk/playProd/debug/*.apk
-      - app/build/reports/tests/testDebugUnitTest/*.html
-      - app/build/reports/tests/testDebugUnitTest/*.xml
-      - app/build/reports/androidTests/connected/*.xml
-      - app/build/reports/androidTests/connected/*.html
+      # - app/build/outputs/apk/playProd/debug/*.apk
+      # - app/build/reports/tests/testDebugUnitTest/*.html
+      # - app/build/reports/tests/testDebugUnitTest/*.xml
+      # - app/build/reports/androidTests/connected/*.xml
+      # - app/build/reports/androidTests/connected/*.html
+      - app/build/outputs/bundle/playProdRelease/*.aab
