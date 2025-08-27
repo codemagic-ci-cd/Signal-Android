@@ -98,6 +98,23 @@ android {
     suppressWarnings = true
   }
 
+  signingConfigs {
+    create("release") {
+      if (System.getenv()["CI"].toBoolean()) {
+        storeFile = file(System.getenv()["CM_KEYSTORE_PATH"])
+        storePassword = System.getenv()["CM_KEYSTORE_PASSWORD"]
+        keyAlias = System.getenv()["CM_KEY_ALIAS"]
+        keyPassword = System.getenv()["CM_KEY_PASSWORD"]
+      } else {
+        keystores["debug"]?.let { properties ->
+          storeFile = file("${project.rootDir}/${properties.getProperty("storeFile")}")
+          storePassword = properties.getProperty("storePassword")
+          keyAlias = properties.getProperty("keyAlias")
+          keyPassword = properties.getProperty("keyPassword")
+        }
+      }
+    }
+  }
   keystores["debug"]?.let { properties ->
     signingConfigs.getByName("debug").apply {
       storeFile = file("${project.rootDir}/${properties.getProperty("storeFile")}")
@@ -241,7 +258,8 @@ android {
     buildConfigField("boolean", "LINK_DEVICE_UX_ENABLED", "false")
 
     ndk {
-      abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+      // abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+      // abiFilters += listOf("x86_64")
     }
     resourceConfigurations += listOf()
 
@@ -249,8 +267,9 @@ android {
       abi {
         isEnable = !project.hasProperty("generateBaselineProfile")
         reset()
-        include("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-        isUniversalApk = true
+        // include("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+        include("x86_64")
+        isUniversalApk = false
       }
     }
 
@@ -296,9 +315,10 @@ android {
     }
 
     getByName("release") {
-      isMinifyEnabled = true
+      isMinifyEnabled = false
       proguardFiles(*buildTypes["debug"].proguardFiles.toTypedArray())
       buildConfigField("String", "BUILD_VARIANT_TYPE", "\"Release\"")
+      signingConfig = signingConfigs.getByName("release")
     }
 
     create("instrumentation") {
