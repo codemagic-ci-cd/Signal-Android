@@ -106,7 +106,6 @@ android {
         keyAlias = System.getenv()["CM_KEY_ALIAS"]
         keyPassword = System.getenv()["CM_KEY_PASSWORD"]
       } else {
-        // Local fallback: reuse debug keystore if present so the script compiles/runs locally.
         keystores["debug"]?.let { properties ->
           storeFile = file("${project.rootDir}/${properties.getProperty("storeFile")}")
           storePassword = properties.getProperty("storePassword")
@@ -314,7 +313,7 @@ android {
     }
 
     getByName("release") {
-      isMinifyEnabled = true
+      isMinifyEnabled = false
       proguardFiles(*buildTypes["debug"].proguardFiles.toTypedArray())
       buildConfigField("String", "BUILD_VARIANT_TYPE", "\"Release\"")
       signingConfig = signingConfigs.getByName("release")
