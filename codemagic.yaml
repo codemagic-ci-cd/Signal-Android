@@ -82,7 +82,9 @@ workflows:
 
       - name: Build APK
         # script: ./gradlew :Signal-Android:bundlePlayProdRelease #--stacktrace --info --debug
-        script: ./gradlew :Signal-Android:assemblePlayProdDebug #--stacktrace --info --debug
+        # script: ./gradlew :Signal-Android:assemblePlayProdDebug #--stacktrace --info --debug
+        script: ./gradlew :app:assemblePlayProdDebug -Pandroid.injected.build.abi=x86_64
+        
 
     artifacts:
       # - app/build/outputs/apk/playProd/debug/*.apk
