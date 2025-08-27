@@ -13,6 +13,9 @@ workflows:
         jdk: openjdk17
       android_signing:
         - codemagic
+    cache:
+      cache_paths:
+        - ~/.gradle/caches
     scripts:
       - name: List sdkmanager location
         script: |
