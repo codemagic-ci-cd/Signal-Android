@@ -2,7 +2,7 @@ workflows:
   signal-android-linux_x2:
     name: Signal Android Build on Linux_x2
     instance_type: linux_x2
-    max_build_duration: 60  # minutes, adjust as needed
+    max_build_duration: 60
     environment:
       vars:
         JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
@@ -30,20 +30,10 @@ workflows:
       - name: Verify Java version
         script: java -version
 
-      # - name: Clean Gradle build
-      #   script: ./gradlew clean
-
       - name: Build APK
-        # script: ./gradlew :Signal-Android:bundlePlayProdRelease #--stacktrace --info --debug
         script: ./gradlew :Signal-Android:assemblePlayProdDebug #--stacktrace --info --debug
 
     artifacts:
-      # - app/build/outputs/apk/playProd/debug/*.apk
-      # - app/build/reports/tests/testDebugUnitTest/*.html
-      # - app/build/reports/tests/testDebugUnitTest/*.xml
-      # - app/build/reports/androidTests/connected/*.xml
-      # - app/build/reports/androidTests/connected/*.html
-      # - app/build/outputs/bundle/playProdRelease/*.aab
       - app/build/outputs/apk/playProd/debug/Signal-Android-play-prod-x86_64-debug-7.53.1.apk
 
   signal-android-linux_x4:
@@ -77,20 +67,9 @@ workflows:
       - name: Verify Java version
         script: java -version
 
-      # - name: Clean Gradle build
-      #   script: ./gradlew clean
-
       - name: Build APK
-        # script: ./gradlew :Signal-Android:bundlePlayProdRelease #--stacktrace --info --debug
-        # script: ./gradlew :Signal-Android:assemblePlayProdDebug #--stacktrace --info --debug
         script: ./gradlew :Signal-Android:assemblePlayProdDebug
         
 
     artifacts:
-      # - app/build/outputs/apk/playProd/debug/*.apk
-      # - app/build/reports/tests/testDebugUnitTest/*.html
-      # - app/build/reports/tests/testDebugUnitTest/*.xml
-      # - app/build/reports/androidTests/connected/*.xml
-      # - app/build/reports/androidTests/connected/*.html
-      # - app/build/outputs/bundle/playProdRelease/*.aab
       - app/build/outputs/apk/playProd/debug/Signal-Android-play-prod-x86_64-debug-7.53.1.apk
