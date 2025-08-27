@@ -80,7 +80,7 @@ workflows:
       # - name: Clean Gradle build
       #   script: ./gradlew clean
 
-      - name: Build release binary
+      - name: Build APK
         # script: ./gradlew :Signal-Android:bundlePlayProdRelease #--stacktrace --info --debug
         script: ./gradlew :Signal-Android:assemblePlayProdDebug #--stacktrace --info --debug
 
@@ -91,4 +91,4 @@ workflows:
       # - app/build/reports/androidTests/connected/*.xml
       # - app/build/reports/androidTests/connected/*.html
       # - app/build/outputs/bundle/playProdRelease/*.aab
-      - app/build/outputs/bundle/playProdDebug/*.apk
+      - app/build/outputs/apk/playProd/debug/Signal-Android-play-prod-x86_64-debug-7.53.1.apk
